@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrey Gizdov</title>
+    <meta name="description" content="Andrey Gizdov — personal page.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>●</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Collapsing name: centered & large, shrinks to an "AG" brand at top-left on scroll. -->
+    <a class="name" id="name" href="#top" aria-label="Andrey Gizdov">
+        <span class="word">
+            <span class="keep">A</span><span class="rest" aria-hidden="true">ndrey</span>
+        </span><span class="gap" aria-hidden="true">&nbsp;</span><span class="word">
+            <span class="keep">G</span><span class="rest" aria-hidden="true">izdov</span>
+        </span>
+    </a>
+
+    <!-- Pop-down nav (fixed, top-right). Appears after the name collapse completes. -->
+    <nav class="nav" id="nav" aria-label="Primary">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#press">Press</a></li>
+            <li><a href="#thanks">Thanks</a></li>
+        </ul>
+    </nav>
+
+    <main id="top">
+        <!-- Spacer: gives 100vh of scroll for the name collapse. -->
+        <section class="hero" aria-hidden="true"></section>
+
+        <!-- ═══ ABOUT ═══ -->
+        <section class="section" id="about">
+            <h2>About</h2>
+            <p class="lede">[I'll write this soon.]</p>
+        </section>
+
+        <!-- ═══ RESEARCH ═══ -->
+        <section class="section" id="research">
+            <h2>
+                <span>Research</span>
+                <a class="scholar" href="https://scholar.google.com/" target="_blank" rel="noopener" aria-label="Google Scholar profile" title="Google Scholar">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path fill="currentColor" d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.749-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+                    </svg>
+                </a>
+            </h2>
+
+            <ol class="papers" reversed>
+                <li>
+                    <span class="year">2025</span>
+                    <div>
+                        <h3>How predictable is AI progress?</h3>
+                        <p>Mayo, Alabdulkareem, Shaw, Conwell, <em>Gizdov</em>, Katz, Barbu, Cheung</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="year">2025</span>
+                    <div>
+                        <h3>Approximate object representations in physical reasoning</h3>
+                        <p><em>Gizdov</em>, Procopio, Li, Harari, Ullman</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="year">2025</span>
+                    <div>
+                        <h3>Seeing more with less: human-like representations in vision models</h3>
+                        <p><em>Gizdov</em>, Ullman, Harari</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="year">2024</span>
+                    <div>
+                        <h3>Variable resolution improves VQA under a limited pixel budget</h3>
+                        <p><em>Gizdov</em>, Ullman, Harari</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="year">2018</span>
+                    <div>
+                        <h3>Digital cranial suture analysis with application in age estimation</h3>
+                        <p>Nikolova, Toneva, <em>Gizdov</em>, Harizanov, Georgiev</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ═══ AS SEEN IN ═══ -->
+        <!-- Note: hrefs below are placeholders — swap with the real URLs when you have them. -->
+        <section class="section" id="press">
+            <h2>As seen in</h2>
+            <ul class="press">
+                <li>
+                    <a href="https://www.mit.edu" target="_blank" rel="noopener">
+                        <span class="outlet">MIT</span>
+                        <span class="desc">Talk · multimodal meta-learning</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.bloomberg.com" target="_blank" rel="noopener">
+                        <span class="outlet">Bloomberg TV</span>
+                        <span class="desc">Interview · CT-scan age estimation</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://nova.bg" target="_blank" rel="noopener">
+                        <span class="outlet">Nova TV</span>
+                        <span class="desc">Interview · CT-scan age estimation</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.societyforscience.org/isef/" target="_blank" rel="noopener">
+                        <span class="outlet">ISEF</span>
+                        <span class="desc">Article · world's largest science fair</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://iccv.thecvf.com/" target="_blank" rel="noopener">
+                        <span class="outlet">ICCV</span>
+                        <span class="desc">Reviewer · 2025</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ═══ THANKS TO ═══ -->
+        <section class="section" id="thanks">
+            <h2>Thanks to</h2>
+            <div class="thanks">
+                <p><strong>My family</strong> — first and always.</p>
+                <p><strong>My mentors</strong> — [names go here].</p>
+                <p><strong>My friends</strong> — [names go here].</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© Andrey Gizdov, 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

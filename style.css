@@ -1,0 +1,291 @@
+/* ════════════════════════════════════════════
+   Andrey Gizdov — minimal.
+   ════════════════════════════════════════════ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --dim: #737373;
+    --line: #e5e5e5;
+    --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+    font: 400 16px/1.65 var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--ink); color: var(--bg); }
+
+/* Scroll anchor offset so section tops aren't hidden by the fixed nav. */
+#about, #research, #press, #thanks { scroll-margin-top: 96px; }
+
+/* ── Collapsing name ── */
+.name {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 50;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 13vw, 8.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--ink);
+    transform-origin: top left;
+    will-change: transform;
+    padding: 0;
+    /* transform and per-letter collapse are driven by JS */
+}
+.word { display: inline-block; }
+.keep { display: inline-block; }
+.rest {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: baseline;
+    max-width: 100%;
+    opacity: 1;
+}
+.gap {
+    display: inline-block;
+    width: 0.3em;
+    overflow: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 60;
+    transform: translate3d(0, -140%, 0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .55s var(--ease), opacity .35s var(--ease);
+}
+.nav.visible {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+}
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.1rem;
+    padding: .55rem 1.1rem;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02), 0 4px 16px rgba(0,0,0,0.04);
+}
+.nav a {
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--dim);
+    padding: .15rem 0;
+    transition: color .2s var(--ease);
+    position: relative;
+    display: inline-block;
+}
+.nav a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform .35s var(--ease);
+}
+.nav a:hover { color: var(--ink); }
+.nav a:hover::after, .nav a.active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* ── Hero spacer (gives scroll room for the collapse) ── */
+.hero {
+    height: 100vh;
+    min-height: 540px;
+}
+
+/* ── Sections ── */
+main { position: relative; z-index: 1; }
+
+.section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+}
+.section + .section { padding-top: 3rem; }
+
+.section h2 {
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: .7rem;
+}
+
+.lede {
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.75;
+    max-width: 56ch;
+}
+
+/* ── Scholar icon ── */
+.scholar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    color: var(--dim);
+    border-radius: 50%;
+    transition: color .2s var(--ease), background-color .2s var(--ease), transform .2s var(--ease);
+}
+.scholar:hover {
+    color: var(--ink);
+    background: var(--line);
+    transform: translateY(-1px);
+}
+
+/* ── Papers ── */
+.papers { list-style: none; }
+.papers li {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+}
+.papers li:last-child { border-bottom: 1px solid var(--line); }
+.papers .year {
+    font-size: .78rem;
+    color: var(--dim);
+    padding-top: .2rem;
+    font-variant-numeric: tabular-nums;
+}
+.papers h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin-bottom: .2rem;
+}
+.papers p { font-size: .85rem; color: var(--dim); }
+.papers em { font-style: normal; color: var(--ink); font-weight: 500; }
+
+/* ── Press ── */
+.press { list-style: none; }
+.press li { border-top: 1px solid var(--line); }
+.press li:last-child { border-bottom: 1px solid var(--line); }
+
+.press a {
+    display: grid;
+    grid-template-columns: 8rem 1fr 1.5rem;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    align-items: baseline;
+    transition: padding-left .3s var(--ease), color .2s var(--ease);
+}
+.press a:hover { padding-left: .5rem; }
+.press .outlet {
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+.press .desc {
+    font-size: .88rem;
+    color: var(--dim);
+}
+.press .arrow {
+    justify-self: end;
+    font-size: .95rem;
+    color: var(--dim);
+    opacity: .5;
+    transition: transform .3s var(--ease), opacity .2s var(--ease), color .2s var(--ease);
+}
+.press a:hover .arrow {
+    transform: translate(3px, -3px);
+    opacity: 1;
+    color: var(--ink);
+}
+
+/* ── Thanks ── */
+.thanks p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink);
+}
+.thanks strong { font-weight: 600; }
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-size: .78rem;
+    color: var(--dim);
+    margin-top: 3rem;
+    border-top: 1px solid var(--line);
+}
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+    .section { padding: 4rem 1.25rem; }
+    .press a { grid-template-columns: 6rem 1fr 1.25rem; gap: .8rem; }
+}
+
+@media (max-width: 520px) {
+    .nav { top: .75rem; right: .75rem; left: auto; }
+    .nav ul { gap: .75rem; padding: .5rem .85rem; }
+    .nav a { font-size: .78rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .press a {
+        grid-template-columns: 1fr 1.25rem;
+        row-gap: .1rem;
+        padding: 1rem 0;
+    }
+    .press .outlet { grid-column: 1 / 2; }
+    .press .desc   { grid-column: 1 / 2; }
+    .press .arrow  { grid-column: 2 / 3; grid-row: 1 / 3; align-self: center; }
+}
+
+/* Very narrow: let the pill shrink further and allow tight wrap if needed. */
+@media (max-width: 360px) {
+    .nav ul { gap: .55rem; padding: .45rem .7rem; }
+    .nav a { font-size: .72rem; }
+}
+
+/* Accessibility: reduced motion — skip all animation. */
+@media (prefers-reduced-motion: reduce) {
+    * { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+    .name {
+        transform: translate3d(1rem, 1rem, 0) scale(0.22) !important;
+        transition: none !important;
+    }
+    .rest, .gap { max-width: 0 !important; opacity: 0 !important; width: 0 !important; }
+    .nav { transform: none !important; opacity: 1 !important; pointer-events: auto !important; }
+    .hero { height: 40vh; min-height: 200px; }
+}
+
+/* Print */
+@media print {
+    .name, .nav { position: static !important; transform: none !important; opacity: 1 !important; }
+    .rest, .gap { max-width: none !important; opacity: 1 !important; width: auto !important; }
+    .hero { display: none; }
+    body { color: #000; background: #fff; }
+}
