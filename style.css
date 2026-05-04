@@ -58,8 +58,10 @@ a { color: inherit; text-decoration: none; }
        -align workarounds. clip-path doesn't change baseline calculation, so
        baseline-to-baseline alignment between .keep and .rest just works.
        The negative top/bottom insets let descenders ("y" in Andrey) render
-       beyond the box rather than being clipped. */
-    clip-path: inset(-30% 0 -30% 0);
+       beyond the box rather than being clipped.
+       The negative right inset gives the trailing "y" / "v" room for glyph
+       overshoot + a touch of breathing space so they don't look clipped. */
+    clip-path: inset(-30% -0.08em -30% 0);
     vertical-align: baseline;
     max-width: 100%;
     opacity: 1;
@@ -220,6 +222,13 @@ main { position: relative; z-index: 1; }
     padding: .28rem .6rem;
     border-radius: 999px;
     white-space: nowrap;
+    text-decoration: none;
+    transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+a.chip:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
 }
 .papers .venue .chip-wip {
     color: #ef5b5b;
