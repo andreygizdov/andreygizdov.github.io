@@ -217,6 +217,33 @@ main { position: relative; z-index: 1; }
 .papers p { font-size: .85rem; color: var(--dim); }
 .papers em { font-style: normal; color: var(--ink); font-weight: 500; }
 
+.papers .venue {
+    margin-top: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    line-height: 1;
+}
+.papers .venue .chip {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+    color: var(--ink);
+    background: #f6f6f4;
+    border: 1px solid var(--line);
+    padding: .28rem .6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.papers .venue .chip-wip {
+    color: #b8261b;
+    background: rgba(184, 38, 27, 0.06);
+    border-color: rgba(184, 38, 27, 0.22);
+    font-style: italic;
+    letter-spacing: 0;
+}
+
 /* ── Press ── */
 .press { list-style: none; }
 .press li { border-top: 1px solid var(--line); }
