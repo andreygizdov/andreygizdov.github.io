@@ -283,6 +283,12 @@ a.chip:hover {
     opacity: 1;
     color: var(--ink);
 }
+.press-more {
+    margin-top: 1.25rem;
+    font-size: .9rem;
+    color: var(--dim);
+    font-style: italic;
+}
 
 /* ── Blog list ── */
 .blog { list-style: none; }
