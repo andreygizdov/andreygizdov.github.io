@@ -47,16 +47,7 @@ a { color: inherit; text-decoration: none; }
     /* transform and per-letter collapse are driven by JS */
 }
 .word { display: inline-block; }
-.keep {
-    display: inline-block;
-    /* Inter's cap-height (~0.72em) is noticeably shorter than its ascender
-       height (~0.97em), so "A" / "G" sit below the top of letters like "d".
-       This makes the capitals look "low" against "ndrey" / "izdov", especially
-       once the real Inter font finishes loading on the deployed site (system
-       fallbacks tend to be more even). Nudge the capitals up to align closer
-       to the ascender line. */
-    transform: translateY(-0.13em);
-}
+.keep { display: inline-block; }
 .rest {
     display: inline-block;
     /* IMPORTANT: we use clip-path — NOT overflow:hidden — for the horizontal
@@ -431,9 +422,12 @@ main { position: relative; z-index: 1; }
 .essay-mark:hover { opacity: 0.55; }
 
 .essay {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 7rem 2.5rem 4rem;
+    max-width: 640px;
+    /* Left-biased layout: anchor the article a fraction of the viewport in
+       from the left edge instead of fully centering it. The right margin
+       just falls open. On narrower screens this is overridden to centered. */
+    margin: 0 auto 0 max(2rem, 14vw);
+    padding: 6rem 1.5rem 4rem;
 }
 
 .essay-header { margin-bottom: 3rem; }
@@ -530,14 +524,20 @@ main { position: relative; z-index: 1; }
     text-align: right;
 }
 
-/* On narrower viewports the centered article would overlap the floating image,
+/* On narrower viewports the article would overlap the floating image,
    so we hide it. The essay still reads cleanly without it. */
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
     .essay-floating-image { display: none; }
 }
 
+/* On medium / smaller viewports the left-biased layout doesn't fit (and the
+   floating image is also hidden below this width), so we re-center. */
+@media (max-width: 1180px) {
+    .essay { margin: 0 auto; }
+}
+
 @media (max-width: 720px) {
-    .essay { padding: 6rem 1.75rem 3rem; }
+    .essay { padding: 5.5rem 1.5rem 3rem; }
     .essay h1 { font-size: 1.85rem; }
     .essay p {
         font-size: 1rem;
