@@ -107,10 +107,32 @@ a { color: inherit; text-decoration: none; }
 .nav a:hover { color: var(--dim); }
 .nav a.active { font-weight: 700; }
 
-/* ── Hero spacer (gives scroll room for the collapse) ── */
+/* ── Hero: scroll room for the name collapse + circular portrait ── */
 .hero {
+    position: relative;
     height: 100vh;
     min-height: 540px;
+}
+.hero-photo {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--line);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 28px rgba(0,0,0,0.08);
+    z-index: 2;
+    background: var(--line);
+}
+.hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    display: block;
 }
 
 /* ── Sections ── */
@@ -588,6 +610,11 @@ a.chip:hover {
     }
     .section { padding: 3.5rem 1.25rem; }
     .books { columns: 1; }
+    .hero-photo {
+        width: 6.25rem;
+        height: 6.25rem;
+        bottom: 1.75rem;
+    }
 }
 
 /* Very narrow: tighten the nav further. */
