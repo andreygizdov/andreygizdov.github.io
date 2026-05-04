@@ -28,7 +28,7 @@ a { color: inherit; text-decoration: none; }
 ::selection { background: var(--ink); color: var(--bg); }
 
 /* Scroll anchor offset so section tops aren't hidden by the fixed nav. */
-#about, #research, #press, #thanks { scroll-margin-top: 96px; }
+#about, #research, #press, #books { scroll-margin-top: 96px; }
 
 /* ── Collapsing name ── */
 .name {
@@ -38,12 +38,12 @@ a { color: inherit; text-decoration: none; }
     font-weight: 500;
     font-size: clamp(2.5rem, 13vw, 8.5rem);
     letter-spacing: -0.04em;
-    line-height: 1;
+    line-height: 1.1;
     white-space: nowrap;
     color: var(--ink);
     transform-origin: top left;
     will-change: transform;
-    padding: 0;
+    padding: 0 0 0.08em 0;
     /* transform and per-letter collapse are driven by JS */
 }
 .word { display: inline-block; }
@@ -54,6 +54,9 @@ a { color: inherit; text-decoration: none; }
     vertical-align: baseline;
     max-width: 100%;
     opacity: 1;
+    /* Extra room below the baseline so descenders (e.g. "y" in Andrey) aren't clipped
+       by overflow:hidden — which is required for the horizontal collapse animation. */
+    padding-bottom: 0.22em;
 }
 .gap {
     display: inline-block;
@@ -225,13 +228,51 @@ main { position: relative; z-index: 1; }
     color: var(--ink);
 }
 
-/* ── Thanks ── */
-.thanks p {
-    font-size: 1rem;
-    line-height: 1.9;
-    color: var(--ink);
+/* ── About: thanks list ── */
+.lede + .lede { margin-top: 1.25rem; }
+
+.about-thanks {
+    list-style: none;
+    margin: .5rem 0 0;
+    padding: 0;
+    max-width: 56ch;
 }
-.thanks strong { font-weight: 600; }
+.about-thanks li {
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.85;
+    padding-left: 1.5rem;
+    position: relative;
+}
+.about-thanks li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--dim);
+}
+
+/* ── Books ── */
+.books {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+.books li {
+    font-size: .95rem;
+    line-height: 1.85;
+    color: var(--ink);
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+}
+.books-more {
+    margin-top: 1.25rem;
+    font-size: .9rem;
+    color: var(--dim);
+    font-style: italic;
+}
 
 /* ── Footer ── */
 .footer {
@@ -262,6 +303,7 @@ main { position: relative; z-index: 1; }
     .press .outlet { grid-column: 1 / 2; }
     .press .desc   { grid-column: 1 / 2; }
     .press .arrow  { grid-column: 2 / 3; grid-row: 1 / 3; align-self: center; }
+    .books { columns: 1; }
 }
 
 /* Very narrow: let the pill shrink further and allow tight wrap if needed. */
