@@ -28,7 +28,7 @@ a { color: inherit; text-decoration: none; }
 ::selection { background: var(--ink); color: var(--bg); }
 
 /* Scroll anchor offset so section tops aren't hidden by the fixed nav. */
-#about, #research, #press, #blog, #books { scroll-margin-top: 96px; }
+#about, #research, #press, #blog, #books, #adventures { scroll-margin-top: 96px; }
 
 /* ── Collapsing name ── */
 .name {
@@ -371,6 +371,40 @@ main { position: relative; z-index: 1; }
     font-size: .9rem;
     color: var(--dim);
     font-style: italic;
+}
+
+/* ── Adventures ── */
+.adventures-intro {
+    margin-top: 1rem;
+    font-weight: 500;
+}
+.adventures {
+    list-style: none;
+    counter-reset: adv;
+    margin: .5rem 0 0;
+    padding: 0;
+    max-width: 56ch;
+}
+.adventures li {
+    counter-increment: adv;
+    position: relative;
+    padding: .9rem 0 .9rem 2.75rem;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+}
+.adventures li:last-child { border-bottom: 1px solid var(--line); }
+.adventures li::before {
+    content: counter(adv, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 1.05rem;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: var(--dim);
+    font-variant-numeric: tabular-nums;
 }
 
 /* ── Footer ── */
