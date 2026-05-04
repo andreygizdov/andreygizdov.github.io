@@ -61,7 +61,7 @@ a { color: inherit; text-decoration: none; }
        beyond the box rather than being clipped.
        The negative right inset gives the trailing "y" / "v" room for glyph
        overshoot + a touch of breathing space so they don't look clipped. */
-    clip-path: inset(-30% -0.08em -30% 0);
+    clip-path: inset(-30% -0.22em -30% 0);
     vertical-align: baseline;
     max-width: 100%;
     opacity: 1;
@@ -238,32 +238,42 @@ a.chip:hover {
     letter-spacing: 0;
 }
 
-/* ── Press ── */
+/* ── Press / "Things I did" ── */
 .press { list-style: none; }
 .press li { border-top: 1px solid var(--line); }
 .press li:last-child { border-bottom: 1px solid var(--line); }
 
 .press a {
     display: grid;
-    grid-template-columns: 8rem 1fr 1.5rem;
-    gap: 1rem;
+    grid-template-columns: 1fr 1.25rem;
+    grid-template-rows: auto auto;
+    column-gap: 1rem;
+    row-gap: .25rem;
     padding: 1.1rem 0;
-    align-items: baseline;
-    transition: padding-left .3s var(--ease), color .2s var(--ease);
+    transition: padding-left .3s var(--ease);
 }
 .press a:hover { padding-left: .5rem; }
 .press .outlet {
-    font-size: .95rem;
+    grid-column: 1;
+    grid-row: 1;
+    font-size: .98rem;
     font-weight: 500;
     color: var(--ink);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
 }
 .press .desc {
-    font-size: .88rem;
+    grid-column: 1;
+    grid-row: 2;
+    font-size: .82rem;
     color: var(--dim);
+    line-height: 1.5;
 }
 .press .arrow {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
     justify-self: end;
-    font-size: .95rem;
     color: var(--dim);
     opacity: .5;
     transition: transform .3s var(--ease), opacity .2s var(--ease), color .2s var(--ease);
@@ -561,7 +571,6 @@ a.chip:hover {
 /* ── Responsive ── */
 @media (max-width: 720px) {
     .section { padding: 4rem 1.25rem; }
-    .press a { grid-template-columns: 6rem 1fr 1.25rem; gap: .8rem; }
 }
 
 @media (max-width: 520px) {
@@ -572,14 +581,6 @@ a.chip:hover {
         font-size: .76rem;
     }
     .section { padding: 3.5rem 1.25rem; }
-    .press a {
-        grid-template-columns: 1fr 1.25rem;
-        row-gap: .1rem;
-        padding: 1rem 0;
-    }
-    .press .outlet { grid-column: 1 / 2; }
-    .press .desc   { grid-column: 1 / 2; }
-    .press .arrow  { grid-column: 2 / 3; grid-row: 1 / 3; align-self: center; }
     .books { columns: 1; }
 }
 
