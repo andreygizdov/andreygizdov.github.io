@@ -240,9 +240,9 @@ main { position: relative; z-index: 1; }
     white-space: nowrap;
 }
 .papers .venue .chip-wip {
-    color: #b8261b;
-    background: rgba(184, 38, 27, 0.06);
-    border-color: rgba(184, 38, 27, 0.22);
+    color: #ef5b5b;
+    background: rgba(239, 91, 91, 0.07);
+    border-color: rgba(239, 91, 91, 0.22);
     font-style: italic;
     letter-spacing: 0;
 }
@@ -509,10 +509,10 @@ main { position: relative; z-index: 1; }
 .essay-floating-image {
     position: fixed;
     top: 5.5rem;
-    right: 2.25rem;
+    right: 2.5rem;
     z-index: 40;
-    width: 280px;
-    max-width: 26vw;
+    width: 240px;
+    max-width: 22vw;
     margin: 0;
     opacity: 0;
     pointer-events: none;
@@ -541,14 +541,21 @@ main { position: relative; z-index: 1; }
 
 /* On narrower viewports the centered article would overlap the floating image,
    so we hide it. The essay still reads cleanly without it. */
-@media (max-width: 1080px) {
+@media (max-width: 1100px) {
     .essay-floating-image { display: none; }
 }
 
 @media (max-width: 720px) {
-    .essay { padding: 5.5rem 1.25rem 3rem; }
+    .essay { padding: 6rem 1.75rem 3rem; }
     .essay h1 { font-size: 1.85rem; }
-    .essay p { font-size: 1rem; }
+    .essay p {
+        font-size: 1rem;
+        margin-bottom: 1.6rem;
+    }
+    .essay-tldr {
+        padding: 1rem 1.15rem !important;
+        font-size: .95rem !important;
+    }
 }
 
 /* ── Responsive ── */
