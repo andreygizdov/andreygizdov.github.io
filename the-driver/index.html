@@ -82,15 +82,23 @@
             if (!img || !anchor) return;
             var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (prefersReduced) return;
-            if (!('IntersectionObserver' in window)) return;
-            var obs = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) {
-                    var on = e.isIntersecting;
-                    img.classList.toggle('visible', on);
-                    document.body.classList.toggle('essay-craft-banner-visible', on);
-                });
-            }, { rootMargin: '-8% 0px -18% 0px', threshold: 0.06 });
-            obs.observe(anchor);
+            var ticking = false;
+            function updateCraftImage() {
+                var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+                var rect = anchor.getBoundingClientRect();
+                // Show while the anchor occupies the middle reading band.
+                var on = rect.top < vh * 0.78 && rect.bottom > vh * 0.22;
+                img.classList.toggle('visible', on);
+                ticking = false;
+            }
+            function onScroll() {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(updateCraftImage);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            updateCraftImage();
         })();
     </script>
 </body>

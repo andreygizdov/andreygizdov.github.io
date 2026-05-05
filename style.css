@@ -700,10 +700,6 @@ a.chip:hover {
 /* On medium / smaller viewports the left-biased layout doesn't fit, so we re-center. */
 @media (max-width: 1180px) {
     .essay { margin: 0 auto; }
-    /* No transition on padding-top: animating it fights scroll and feels like a sling when the banner closes. */
-    body.essay-page.essay-craft-banner-visible .essay {
-        padding-top: calc(6rem + min(38vh, 260px));
-    }
 }
 
 @media (max-width: 720px) {
@@ -712,9 +708,6 @@ a.chip:hover {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
         padding-bottom: 3rem;
-    }
-    body.essay-page.essay-craft-banner-visible .essay {
-        padding-top: calc(5.5rem + min(38vh, 260px));
     }
     .essay h1 { font-size: 1.85rem; }
     .essay p {
