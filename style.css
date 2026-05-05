@@ -122,8 +122,10 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-photo {
     position: relative;
-    width: 8rem;
-    height: 8rem;
+    /* Match the article column ( .section max-width: 680px ), minus hero padding — almost full text width. */
+    width: min(calc(100vw - 3rem), 680px);
+    aspect-ratio: 1;
+    height: auto;
     flex-shrink: 0;
     border-radius: 0;
     overflow: hidden;
@@ -631,8 +633,7 @@ a.chip:hover {
         padding: 0 1.25rem 1.75rem;
     }
     .hero-photo {
-        width: 6.5rem;
-        height: 6.5rem;
+        width: min(calc(100vw - 2.5rem), 680px);
     }
 }
 
