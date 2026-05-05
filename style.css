@@ -46,6 +46,14 @@ a { color: inherit; text-decoration: none; }
     padding: 0;
     /* transform and per-letter collapse are driven by JS */
 }
+
+@media (max-width: 640px) {
+    .name {
+        left: 50%;
+        right: auto;
+        transform-origin: top center;
+    }
+}
 .word { display: inline-block; }
 .keep { display: inline-block; }
 .rest {
@@ -97,17 +105,24 @@ a { color: inherit; text-decoration: none; }
     pointer-events: auto;
 }
 
-/* Phones: nav as a centred band below the collapsed AG (JS centres AG on ≤640px). */
+/* Phones: nav as a centred band below the collapsed AG (≤640px: three links only). */
 @media (max-width: 640px) {
+    .hero {
+        height: auto;
+        min-height: 0;
+        padding: 5.2rem 1rem 1.35rem;
+    }
+    .hero-photo {
+        width: min(calc(100vw - 2rem), 500px);
+    }
     .nav {
         top: calc(env(safe-area-inset-top, 0px) + 3rem);
         left: 0.65rem;
         right: 0.65rem;
         justify-content: center;
-        flex-wrap: wrap;
-        row-gap: .5rem;
-        column-gap: .85rem;
-        font-size: .74rem;
+        flex-wrap: nowrap;
+        gap: 1.35rem;
+        font-size: .78rem;
         transform: translate3d(0, -250%, 0);
         max-width: none;
     }
@@ -121,9 +136,9 @@ a { color: inherit; text-decoration: none; }
         display: inline-flex;
         align-items: center;
     }
-    /* Anchor jumps clear the taller stacked header */
+    /* Anchor jumps clear header (single-line nav). */
     #about, #research, #press, #blog, #books, #adventures {
-        scroll-margin-top: 130px;
+        scroll-margin-top: 112px;
     }
 }
 .nav a {
@@ -137,17 +152,24 @@ a { color: inherit; text-decoration: none; }
 .nav a:hover { color: var(--dim); }
 .nav a.active { font-weight: 700; }
 
+/* Slim nav on phones; full list from tablet up. */
+@media (max-width: 640px) {
+    .nav-desktop-only {
+        display: none !important;
+    }
+}
+
 /* ── Hero: scroll room for the name collapse + square portrait ──
    The photo is a true square (same width & height); image is square-cropped
    inside with object-fit. It enters from the right and settles in the centre. */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 540px;
+    height: min(100vh, 980px);
+    min-height: 620px;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    padding: 0 1.5rem 2.5rem;
+    align-items: flex-start;
+    padding: clamp(11rem, 22vh, 14rem) 1.5rem 2.5rem;
     box-sizing: border-box;
 }
 .hero-photo {
@@ -284,13 +306,13 @@ main { position: relative; z-index: 1; }
 }
 .papers .venue .chip {
     display: inline-block;
-    font-size: .68rem;
-    font-weight: 600;
-    letter-spacing: .03em;
+    font-size: .94rem;
+    font-weight: 700;
+    letter-spacing: .01em;
     color: var(--ink);
     background: #f6f6f4;
     border: 1px solid var(--line);
-    padding: .28rem .6rem;
+    padding: .35rem .72rem;
     border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
@@ -610,8 +632,8 @@ a.chip:hover {
     .essay-floating-image {
         top: 5.5rem;
         right: 2.5rem;
-        width: 240px;
-        max-width: 22vw;
+        width: 300px;
+        max-width: 28vw;
         transform: translateY(12px);
     }
     .essay-floating-image.visible {
@@ -678,9 +700,7 @@ a.chip:hover {
 /* On medium / smaller viewports the left-biased layout doesn't fit, so we re-center. */
 @media (max-width: 1180px) {
     .essay { margin: 0 auto; }
-    body.essay-page .essay {
-        transition: padding-top .45s var(--ease);
-    }
+    /* No transition on padding-top: animating it fights scroll and feels like a sling when the banner closes. */
     body.essay-page.essay-craft-banner-visible .essay {
         padding-top: calc(6rem + min(38vh, 260px));
     }
@@ -720,10 +740,12 @@ a.chip:hover {
     .section { padding: 3.5rem 1.25rem; }
     .books { columns: 1; }
     .hero {
-        padding: 0 1.25rem 1.75rem;
+        height: auto;
+        min-height: 0;
+        padding: 4.8rem 1rem 1.3rem;
     }
     .hero-photo {
-        width: min(calc(100vw - 2.5rem), 544px);
+        width: min(calc(100vw - 2rem), 500px);
     }
 }
 
@@ -755,12 +777,14 @@ a.chip:hover {
 @media (prefers-reduced-motion: reduce) and (max-width: 640px) {
     .name {
         left: 50% !important;
+        transform-origin: top center !important;
         transform: translate3d(-50%, 0.75rem, 0) scale(0.22) !important;
     }
 }
 
 /* Print */
 @media print {
+    .nav-desktop-only { display: unset !important; }
     .name, .nav { position: static !important; transform: none !important; opacity: 1 !important; }
     .rest, .gap { max-width: none !important; opacity: 1 !important; width: auto !important; }
     .hero { display: none; }

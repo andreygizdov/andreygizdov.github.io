@@ -13,8 +13,10 @@
     // Target position of the collapsed "AG" (top-left on desktop). Scaled by the final scale factor.
     var FINAL_SCALE = 0.22;          // final font-size relative to initial
     var FINAL_X = 20;                // px from viewport left (of the AG glyph, after scale)
-    var FINAL_Y = 18;                // px from viewport top
-    var FINAL_Y_MOBILE = 12;         // px from viewport top when centred on narrow screens
+    var FINAL_Y = 10;                // px from viewport top
+    var FINAL_Y_MOBILE = 8;          // px from viewport top when centred on narrow screens
+    var START_Y = 0;                 // expanded state pinned to very top
+    var START_Y_MOBILE = 0;          // no extra top margin on phones
     var MOBILE_NAV_BREAKPOINT = 640; // stack nav below centred AG; no overlap with links
     var SCROLL_FACTOR = 0.65;        // collapse finishes at 65% of viewport height
 
@@ -73,19 +75,22 @@
         }
 
         // Move and scale the whole name element.
-        // Start: centered on screen at scale 1.
-        // End:   top-left corner at FINAL_SCALE.
+        // Start: top edge (no empty margin above the name).
+        // End: desktop top-left at FINAL_SCALE; mobile stays horizontally centred (CSS left:50% +
+        // translate -50% + transform-origin top centre — layout width shrinks as .rest collapse,
+        // which breaks a naive (vw - origW*s)/2 calculation).
         var startX = (vw - origW) / 2;
-        var startY = (vh - origH) / 2;
         var s = lerp(1, FINAL_SCALE, p);
         var mobile = vw <= MOBILE_NAV_BREAKPOINT;
-        // Desktop: ease into top-left FINAL_X / FINAL_Y.
-        // Mobile: keep the collapsing word horizontally centred at every scale so "AG"
-        // never sits under the nav links (nav is full-width, centred, below this band).
-        var x = mobile ? ((vw - origW * s) / 2) : lerp(startX, FINAL_X, p);
+        var startY = mobile ? START_Y_MOBILE : START_Y;
+        var x = lerp(startX, FINAL_X, p);
         var y = mobile ? lerp(startY, FINAL_Y_MOBILE, p) : lerp(startY, FINAL_Y, p);
 
-        name.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + s + ')';
+        if (mobile) {
+            name.style.transform = 'translate3d(-50%, ' + y + 'px, 0) scale(' + s + ')';
+        } else {
+            name.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + s + ')';
+        }
 
         // Pop down the nav once the collapse is essentially done.
         if (nav) nav.classList.toggle('visible', rawP > 0.88);
