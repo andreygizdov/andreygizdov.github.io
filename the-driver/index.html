@@ -18,8 +18,8 @@
     <!-- Small AG mark, top-left, links home -->
     <a class="essay-mark" href="/" aria-label="Andrey Gizdov — home">AG</a>
 
-    <!-- Floating illustration: fixed in the top-right, fades in only while the
-         "beauty of the human craft" passage is in view. Hidden on narrow screens. -->
+    <!-- Floating illustration: wide viewports use top-right panel; narrow screens use a
+         fixed strip that slides down only while the "beauty of the human craft" passage is in view. -->
     <figure class="essay-floating-image" id="craft-image" aria-hidden="true">
         <img src="../assets/beauty-of-craft.png" alt="">
         <figcaption>The cobbler and his apprentice.</figcaption>
@@ -85,10 +85,11 @@
             if (!('IntersectionObserver' in window)) return;
             var obs = new IntersectionObserver(function (entries) {
                 entries.forEach(function (e) {
-                    if (e.isIntersecting) img.classList.add('visible');
-                    else img.classList.remove('visible');
+                    var on = e.isIntersecting;
+                    img.classList.toggle('visible', on);
+                    document.body.classList.toggle('essay-craft-banner-visible', on);
                 });
-            }, { rootMargin: '-10% 0px -15% 0px', threshold: 0 });
+            }, { rootMargin: '-8% 0px -18% 0px', threshold: 0.06 });
             obs.observe(anchor);
         })();
     </script>

@@ -96,6 +96,36 @@ a { color: inherit; text-decoration: none; }
     opacity: 1;
     pointer-events: auto;
 }
+
+/* Phones: nav as a centred band below the collapsed AG (JS centres AG on ≤640px). */
+@media (max-width: 640px) {
+    .nav {
+        top: calc(env(safe-area-inset-top, 0px) + 3rem);
+        left: 0.65rem;
+        right: 0.65rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        row-gap: .5rem;
+        column-gap: .85rem;
+        font-size: .74rem;
+        transform: translate3d(0, -250%, 0);
+        max-width: none;
+    }
+    .nav.visible {
+        transform: translate3d(0, 0, 0);
+    }
+    .nav a {
+        padding: .35rem .15rem;
+        min-height: 44px;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+    }
+    /* Anchor jumps clear the taller stacked header */
+    #about, #research, #press, #blog, #books, #adventures {
+        scroll-margin-top: 130px;
+    }
+}
 .nav a {
     color: var(--ink);
     text-decoration: underline;
@@ -477,7 +507,7 @@ a.chip:hover {
 .essay-mark {
     position: fixed;
     top: 1.4rem; left: 1.5rem;
-    z-index: 50;
+    z-index: 56;
     font-weight: 600;
     font-size: 1.05rem;
     letter-spacing: -0.02em;
@@ -486,6 +516,15 @@ a.chip:hover {
     transition: opacity .2s var(--ease);
 }
 .essay-mark:hover { opacity: 0.55; }
+
+/* Narrow screens: keep the home link clear of the reading column (same edge as desktop TLDR). */
+@media (max-width: 720px) {
+    .essay-mark {
+        left: auto;
+        right: max(1rem, env(safe-area-inset-right, 0px));
+        top: calc(env(safe-area-inset-top, 0px) + 1rem);
+    }
+}
 
 .essay {
     max-width: 640px;
@@ -555,55 +594,108 @@ a.chip:hover {
 }
 .essay-back a:hover { color: var(--ink); }
 
-/* Floating illustration that materialises in the top-right while the
-   "beauty of the human craft" passage is in view. */
+/* Floating illustration while the "beauty of the human craft" passage is in view.
+   Wide screens: top-right panel. Tablets / phones: drops from above (fixed strip). */
 .essay-floating-image {
     position: fixed;
-    top: 5.5rem;
-    right: 2.5rem;
-    z-index: 40;
-    width: 240px;
-    max-width: 22vw;
     margin: 0;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(8px);
-    transition: opacity .9s var(--ease), transform .9s var(--ease);
-}
-.essay-floating-image.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.essay-floating-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border: 1px solid var(--line);
-    background: #fafaf7;
-}
-.essay-floating-image figcaption {
-    margin-top: .5rem;
-    font-size: .72rem;
-    letter-spacing: .04em;
-    color: var(--dim);
-    font-style: italic;
-    text-align: right;
+    z-index: 48;
+    transition: opacity .55s var(--ease), transform .58s var(--ease);
+    box-sizing: border-box;
 }
 
-/* On narrower viewports the article would overlap the floating image,
-   so we hide it. The essay still reads cleanly without it. */
+@media (min-width: 1181px) {
+    .essay-floating-image {
+        top: 5.5rem;
+        right: 2.5rem;
+        width: 240px;
+        max-width: 22vw;
+        transform: translateY(12px);
+    }
+    .essay-floating-image.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .essay-floating-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid var(--line);
+        background: #fafaf7;
+    }
+    .essay-floating-image figcaption {
+        margin-top: .5rem;
+        font-size: .72rem;
+        letter-spacing: .04em;
+        color: var(--dim);
+        font-style: italic;
+        text-align: right;
+    }
+}
+
 @media (max-width: 1180px) {
-    .essay-floating-image { display: none; }
+    .essay-floating-image {
+        top: calc(env(safe-area-inset-top, 0px) + 2.85rem);
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: none;
+        padding: .4rem 1rem .55rem;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        transform: translateY(-130%);
+    }
+    .essay-floating-image.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .essay-floating-image img {
+        width: 100%;
+        max-width: 22rem;
+        max-height: min(38vh, 240px);
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        border: 1px solid var(--line);
+        background: #fafaf7;
+        object-fit: contain;
+    }
+    .essay-floating-image figcaption {
+        margin-top: .35rem;
+        font-size: .68rem;
+        letter-spacing: .03em;
+        color: var(--dim);
+        font-style: italic;
+        text-align: center;
+    }
 }
 
-/* On medium / smaller viewports the left-biased layout doesn't fit (and the
-   floating image is also hidden below this width), so we re-center. */
+/* On medium / smaller viewports the left-biased layout doesn't fit, so we re-center. */
 @media (max-width: 1180px) {
     .essay { margin: 0 auto; }
+    body.essay-page .essay {
+        transition: padding-top .45s var(--ease);
+    }
+    body.essay-page.essay-craft-banner-visible .essay {
+        padding-top: calc(6rem + min(38vh, 260px));
+    }
 }
 
 @media (max-width: 720px) {
-    .essay { padding: 5.5rem 1.5rem 3rem; }
+    .essay {
+        padding-top: 5.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 3rem;
+    }
+    body.essay-page.essay-craft-banner-visible .essay {
+        padding-top: calc(5.5rem + min(38vh, 260px));
+    }
     .essay h1 { font-size: 1.85rem; }
     .essay p {
         font-size: 1rem;
@@ -613,19 +705,17 @@ a.chip:hover {
         padding: 1rem 1.15rem !important;
         font-size: .95rem !important;
     }
-}
-
-/* ── Responsive ── */
-@media (max-width: 720px) {
     .section { padding: 4rem 1.25rem; }
 }
 
+/* ── Responsive ── */
+
 @media (max-width: 520px) {
     .nav {
-        top: 1rem;
-        right: 1rem;
-        gap: .9rem;
-        font-size: .76rem;
+        gap: .45rem .65rem;
+        font-size: .7rem;
+        left: 0.5rem;
+        right: 0.5rem;
     }
     .section { padding: 3.5rem 1.25rem; }
     .books { columns: 1; }
@@ -659,6 +749,13 @@ a.chip:hover {
         animation: none !important;
         transform: none !important;
         opacity: 1 !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 640px) {
+    .name {
+        left: 50% !important;
+        transform: translate3d(-50%, 0.75rem, 0) scale(0.22) !important;
     }
 }
 

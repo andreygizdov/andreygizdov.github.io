@@ -10,10 +10,12 @@
     var rests = name.querySelectorAll('.rest');
     var gap   = name.querySelector('.gap');
 
-    // Target position of the collapsed "AG" (top-left). Scaled by the final scale factor.
+    // Target position of the collapsed "AG" (top-left on desktop). Scaled by the final scale factor.
     var FINAL_SCALE = 0.22;          // final font-size relative to initial
     var FINAL_X = 20;                // px from viewport left (of the AG glyph, after scale)
     var FINAL_Y = 18;                // px from viewport top
+    var FINAL_Y_MOBILE = 12;         // px from viewport top when centred on narrow screens
+    var MOBILE_NAV_BREAKPOINT = 640; // stack nav below centred AG; no overlap with links
     var SCROLL_FACTOR = 0.65;        // collapse finishes at 65% of viewport height
 
     // Measured at the initial (fully expanded) state.
@@ -75,9 +77,13 @@
         // End:   top-left corner at FINAL_SCALE.
         var startX = (vw - origW) / 2;
         var startY = (vh - origH) / 2;
-        var x = lerp(startX, FINAL_X, p);
-        var y = lerp(startY, FINAL_Y, p);
         var s = lerp(1, FINAL_SCALE, p);
+        var mobile = vw <= MOBILE_NAV_BREAKPOINT;
+        // Desktop: ease into top-left FINAL_X / FINAL_Y.
+        // Mobile: keep the collapsing word horizontally centred at every scale so "AG"
+        // never sits under the nav links (nav is full-width, centred, below this band).
+        var x = mobile ? ((vw - origW * s) / 2) : lerp(startX, FINAL_X, p);
+        var y = mobile ? lerp(startY, FINAL_Y_MOBILE, p) : lerp(startY, FINAL_Y, p);
 
         name.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + s + ')';
 
